@@ -1,0 +1,28 @@
+{
+  "sourceType": "unambiguous",
+  "presets": [
+    [
+      "@nx/react/babel",
+      {
+        "runtime": "automatic",
+        "useBuiltIns": "usage"
+      }
+    ],
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "chrome": 100,
+          "safari": 15,
+          "firefox": 91
+        }
+      }
+    ],
+    "@babel/preset-typescript",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    ["@babel/plugin-transform-private-property-in-object", { "loose": false }],
+    ["@babel/plugin-transform-private-methods", { "loose": false }]
+  ]
+}

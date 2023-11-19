@@ -1,0 +1,86 @@
+{
+  "name": "deriv-hk",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/deriv-hk",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/deriv-hk"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/deriv-hk"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build-images"],
+      "options": {
+        "buildTarget": "deriv-hk:build",
+        "dev": true,
+        "keepAliveTimeout": 60000,
+        "hostname": "localhost"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "deriv-hk:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "deriv-hk:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nx/next:export",
+      "dependsOn": ["clean", "build-images"],
+      "options": {
+        "buildTarget": "deriv-hk:build:production"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/deriv-hk/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "build-images": {
+      "executor": "nx:run-commands",
+      "outputs": ["{workspaceRoot}/apps/deriv-hk/public/images"],
+      "options": {
+        "command": "next-image-export-optimizer --nextConfigPath apps/deriv-hk/next.config.js",
+        "parallel": true,
+        "readyWhen": "---- next-image-export-optimizer: Done ----"
+      }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "rimraf apps/deriv-hk/.next && rimraf apps/deriv-hk/public/images"
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "../../coverage/apps/deriv-hk"
+      },
+      "configurations": {
+        "watch": {
+          "watch": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
