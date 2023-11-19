@@ -49,8 +49,7 @@
         "releaseAs": "minor",
         "noVerify": true,
         "commitFormatMessage": "chore: {{projectName}} release {{version}} [skip ci]",
-        "allowEmptyRelease": true,
-        "push": true
+        "allowEmptyRelease": true
       }
     },
     "deploy": {

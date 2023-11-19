@@ -50,8 +50,7 @@
         "noVerify": true,
         "commitFormatMessage": "chore: {{projectName}} release {{version}} [skip ci]",
         "skipCommit": false,
-        "allowEmptyRelease": true,
-        "push": true
+        "allowEmptyRelease": true
       }
     },
     "deploy": {
